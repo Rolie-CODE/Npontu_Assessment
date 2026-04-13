@@ -1,0 +1,59 @@
+Model Performance Monitoring and Degradation in Production
+
+Once a machine learning model is deployed into a real-world environment, its performance can change over time due to shifts in data, user behavior, or external conditions. This phenomenon is known as model performance degradation, and it is a critical aspect of maintaining reliable machine learning systems in production.
+
+1. Data Drift Detection
+
+Data drift occurs when the statistical properties of incoming input data change compared to the data used during training. For example, in this project, changes in patterns such as average sleep hours, stress levels, or academic performance among new users could affect the model’s predictions.
+
+To monitor data drift, we would:
+
+Continuously compare incoming feature distributions with training data distributions
+Use statistical methods such as mean, variance, or distribution comparison tests (e.g., KS-test)
+Track categorical feature changes such as shifts in platform usage or demographic distributions
+
+If significant drift is detected, it indicates that the model may no longer be learning from representative data.
+
+2. Prediction Monitoring and Logging
+
+To evaluate model behavior in production, all predictions should be logged alongside input features. This allows for:
+
+Tracking the distribution of predicted outcomes over time
+Identifying unusual spikes in certain prediction classes (e.g., sudden increase in “depression” predictions)
+Auditing model decisions for consistency
+
+Logs should include:
+
+Input features
+Predicted output
+Timestamp
+Model version
+3. Performance Evaluation Over Time
+
+In production, true labels may become available later (e.g., through surveys or user feedback). When this happens, we can measure real-world performance using metrics such as:
+
+Accuracy
+Precision, Recall, and F1-score
+Confusion matrix analysis
+
+These metrics should be evaluated periodically (weekly or monthly) to determine whether the model is still performing as expected.
+
+4. Model Retraining Strategy
+
+If performance degradation is detected, the model should be retrained using updated data. A retraining strategy may include:
+
+Periodic retraining (e.g., monthly or quarterly)
+Trigger-based retraining when performance drops below a defined threshold
+Incorporating newly collected data to improve generalization
+
+Version control should be maintained for each model iteration to track improvements or regressions over time.
+
+5. Concept Drift Consideration
+
+Beyond data changes, the relationship between input features and the target variable may also evolve over time. This is known as concept drift. For example, the relationship between stress level and depression may change due to societal, environmental, or behavioral shifts.
+
+Detecting concept drift requires continuous monitoring of model performance metrics and retraining when necessary.
+
+Summary
+
+To ensure long-term reliability, the deployed model must be continuously monitored for data drift, prediction behavior, and performance changes. A structured monitoring and retraining pipeline ensures that the system remains accurate, stable, and relevant in real-world conditions.
